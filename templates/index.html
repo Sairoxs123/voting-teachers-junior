@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title> ELECTIONS</title>
+	<link rel="stylesheet" type="text/css" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link href="https://pbs.twimg.com/profile_images/987687428365389825/F42jiM8p_400x400.jpg" type="image/jpg" rel="icon">
+    <meta name="google-site-verification" content="2bzIrFcsSRU2LDP5k8X-D8LwF2YeBl42J3P4bb3ZLAk" />
+	<style>
+		*{
+	margin: 0;
+	padding: 0;
+	font-family: Century Gothic;
+}
+header{
+	background-image:linear-gradient(rgba(0,0,0,0.5),rgba(0,0,0,0.5)), url(https://www.yallaschools.com/uploads/JSS_Pvt_School.jpg);
+	height: 100vh;
+	background-size: cover;
+	background-position: center;
+	min-height: 100px;
+}
+
+
+.title h1{
+	color: #fff;
+	font-size: 75px;
+	position: absolute;
+	top: 30%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+}
+.title h6{
+	color: #fff;
+	font-size: 25px;
+	padding-top: 22%;
+	left: 50%;
+
+}
+.title h5{
+	color: #fff;
+	font-size: 27px;
+	position: absolute;
+	top: 57%;
+	left: 50%;
+	transform: translate(-50%,-50%);
+	text-transform: uppercase;
+}
+
+
+.button{
+	position: absolute;
+	top: 70%;
+	left: 50%;
+	display: flex;
+	justify-content: space-evenly;
+	transform: translate(-50%,-50%);
+}
+
+.btn{
+	border: 1px solid #fff;
+	padding: 10px 40px;
+	color: #fff;
+	transition: 0.5s ease;
+	font-size: 18px;
+	text-decoration: none;
+}
+
+.btn:hover{
+	background-color: #fff;
+	color: #000;
+}
+
+@media only screen and (max-width:700px){
+	header{
+		display: none;
+	}
+}
+
+
+	</style>
+</head>
+<body>
+	<header>
+		<div class="main">
+		 <div class="title">
+		 	<center><h1>VOTE!!!</h1>
+<h6>"A leader's courage to fulfill his version comes from passion, not position"</h6>
+
+<h5>choose your leaders now!!!</h5></center>
+<br>
+<br>
+<br>
+<br>
+<br>
+		 </div>
+		 <div class="button">
+            <a href="{% url 'auth' %}" class="btn">Voting Form</a>
+            &nbsp;&nbsp;&nbsp;
+		 	<a href="{% url 'admin' %}" class="btn">Admin</a>
+		 </div>
+
+		 	</header>
+
+</body>
+</html>

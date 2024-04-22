@@ -1,0 +1,96 @@
+body {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://www.yallaschools.com/uploads/JSS_Pvt_School.jpg);
+    height: 95%;
+    background-size: cover;
+    background-position: center;
+}
+
+
+#headgirl,
+#sportsboy,
+#sportsgirl,
+#dheadboy,
+#dheadgirl,
+#dsportsboy,
+#dsportsgirl,
+#submit {
+    display: none;
+}
+
+
+button {
+    font-size: 2em;
+    border: 4px solid black;
+    padding: 5%;
+    background: none;
+    background-color: red;
+    color: beige;
+    font-weight: bold;
+    transition: 100ms ease-in-out all;
+}
+
+button:hover {
+    background-color: beige;
+    color: red;
+    cursor: pointer;
+}
+
+.big-box {
+    background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://w0.peakpx.com/wallpaper/506/235/HD-wallpaper-white-hexagon-geometric-shapes-white-aesthetic.jpg);
+    background-size: cover;
+    background-position: center;
+    background-color: ivory;
+    border: 1px solid #ddd;
+    padding: 20px;
+    max-width: 87%;
+    height: 60%;
+    margin: 0 auto;
+    margin-top: 3%;
+}
+
+.picture-box-container {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 20px;
+}
+
+.picture-box {
+    position: relative;
+    width: 27%;
+    height: 310;
+    margin: 0;
+    padding: 0;
+    border: 1px solid #ddd;
+    box-sizing: border-box;
+}
+
+.picture-box .img {
+    max-width: 97%;
+    height: 305;
+    cursor: pointer;
+}
+
+.picture-box .caption {
+ position: absolute; /* Position the background text */
+bottom: 0; /* At the bottom. Use top:0 to append it to the top */
+background: rgb(0, 0, 0); /* Fallback color */
+background: rgba(0, 0, 0, 0.5); /* Black background with 0.5 opacity */
+color: #f1f1f1; /* Grey text */
+margin-left: 1.75%;
+width: 83.75%; /* Full width */
+padding: 20px; /* Some padding */
+}
+
+.picture-box:hover .caption {
+    opacity: 1;
+}
+
+.picture-box .caption h3 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.picture-box .caption p {
+    margin: 0;
+    font-size: 16px;
+}

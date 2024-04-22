@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+        <link href="https://pbs.twimg.com/profile_images/987687428365389825/F42jiM8p_400x400.jpg" type="image/jpg"
+        rel="icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        form{
+            margin: 1%;
+        }
+    </style>
+</head>
+<body>
+    <form action="{% url 'login' %}" method="post">
+
+        {% csrf_token %}
+
+        <label>Password: </label>
+        <input type="password" name="password">
+
+        <br><br>
+
+        <input type="submit" value="Submit" class="btn btn-primary">
+
+    </form>
+</body>
+</html>

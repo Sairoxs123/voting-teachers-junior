@@ -1,0 +1,586 @@
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Voting</title>
+    <link href="https://pbs.twimg.com/profile_images/987687428365389825/F42jiM8p_400x400.jpg" type="image/jpg"
+        rel="icon">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+    <style>
+        * {
+            font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+        }
+
+        body {
+            background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://www.yallaschools.com/uploads/JSS_Pvt_School.jpg);
+            background-size: cover;
+            background-position: center;
+            height: 95%;
+        }
+
+        #homelink {
+            text-decoration: none;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            position: absolute;
+            background-image: linear-gradient(to right, #2c3e50 0%, #3498db 51%, #2c3e50 100%);
+            margin: 10px;
+            padding: 15px 45px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;
+            box-shadow: 0 0 20px #eee;
+            border-radius: 10px;
+            display: block;
+            font-size: 2em;
+        }
+
+        #homelink:hover {
+            background-position: right center;
+            /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+        }
+
+        #jss-logo {
+            position: absolute;
+            top: 10px;
+            right: 30px;
+            border-radius: 50%;
+        }
+
+        .container {
+            position: absolute;
+            margin-top: 5%;
+        }
+
+        .big-box {
+            /*background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://w0.peakpx.com/wallpaper/506/235/HD-wallpaper-white-hexagon-geometric-shapes-white-aesthetic.jpg);*/
+            --s: 30px;
+            --c: #191b22;
+            --_s: calc(2*var(--s)) calc(2*var(--s));
+            --_g: 35.36% 35.36% at;
+            --_c: #0000 66%, #20222a 68% 70%, #0000 100%;
+            background:
+                radial-gradient(var(--_g) 100% 25%, var(--_c)) var(--s) var(--s)/var(--_s),
+                radial-gradient(var(--_g) 0 75%, var(--_c)) var(--s) var(--s)/var(--_s),
+                radial-gradient(var(--_g) 100% 25%, var(--_c)) 0 0/var(--_s),
+                radial-gradient(var(--_g) 0 75%, var(--_c)) 0 0/var(--_s),
+                repeating-conic-gradient(var(--c) 0 25%, #0000 0 50%) 0 0/var(--_s),
+                radial-gradient(var(--_c)) 0 calc(var(--s)/2)/var(--s) var(--s) var(--c);
+            background-attachment: fixed;
+            /*background-size: cover;
+            background-position: center;*/
+            padding: 20px;
+            max-width: 87%;
+            height: 60%;
+            margin: 0 auto;
+            margin-top: 3%;
+            border-radius: 10px;
+            box-shadow: 7.5px 10px #888888;
+        }
+
+        #confirmation {
+            background-color: ivory;
+            border: 1px solid #ddd;
+            padding: 5%x;
+            max-width: 70%;
+            height: 450;
+            margin: 1 auto;
+            margin-top: 5%;
+            text-align: center;
+        }
+
+        .confirm-button {
+            font-size: 16px;
+            font-weight: 900;
+            padding: 1%;
+            background-color: yellow;
+            border: 3px solid blue;
+            cursor: pointer;
+            margin-left: 2%;
+        }
+
+        .confirm-button:hover {
+            background-color: aqua;
+            transition: all 5ms;
+        }
+
+        .picture-box-container {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px;
+            width: 100%;
+        }
+
+        .picture-box {
+            position: relative;
+            width: 25%;
+            height: 313;
+            padding-left: 1%;
+            padding-right: 1%;
+            margin: 0;
+            padding-bottom: 1%;
+            box-sizing: border-box;
+            display: flex;
+            justify-content: center;
+        }
+
+        .picture-box .img {
+            width: 100%;
+            height: 305;
+            cursor: pointer;
+        }
+
+        .picture-box .caption {
+            position: absolute;
+            /* Position the background text */
+            bottom: 6px;
+            /* At the bottom. Use top:0 to append it to the top */
+            background: rgb(0, 0, 0);
+            /* Fallback color */
+            background: rgba(0, 0, 0, 0.5);
+            /* Black background with 0.5 opacity */
+            color: #f1f1f1;
+            /* Grey text */
+            margin-left: 0.1%;
+            width: 91%;
+            /* Full width */
+            padding: 15px;
+            text-align: center;
+            /* Some padding */
+        }
+
+        .picture-box .caption h3 {
+            margin: 0;
+            font-size: 24px;
+        }
+
+        .picture-box .caption p {
+            margin: 0;
+            font-size: 16px;
+        }
+
+        .previous {
+            bottom: 0;
+            left: 0;
+            margin-left: 1%;
+            margin-top: 1%;
+            float: left;
+            padding: 0.15%;
+        }
+
+        .previous button {
+            background-image: linear-gradient(to right, #EB3349 0%, #F45C43 51%, #EB3349 100%);
+            margin: 10px;
+            padding: 15px 45px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;
+            box-shadow: 0 0 20px #eee;
+            border-radius: 10px;
+            display: block;
+            font-size: 2em;
+        }
+
+        .previous button:hover {
+            background-position: right center;
+            /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+        }
+
+        .next {
+            bottom: 0;
+            right: 0;
+            margin-right: 1%;
+            margin-top: 1%;
+            float: right;
+            padding: 0.15%;
+        }
+
+        .next button {
+            background-image: linear-gradient(to right, #1D976C 0%, #93F9B9 51%, #1D976C 100%);
+            margin: 10px;
+            padding: 15px 45px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;
+            box-shadow: 0 0 20px #eee;
+            border-radius: 10px;
+            display: block;
+            font-size: 2em;
+        }
+
+        .next button:hover {
+            background-position: right center;
+            /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+        }
+
+        #selected {
+            outline: green solid 10px;
+            transition: linear 50ms;
+        }
+
+
+        #headgirl,
+        #sportscaptainboys,
+        #sportscaptaingirl,
+        #deputyheadboy,
+        #deputyheadgirl,
+        #deputysportscaptainboys,
+        #deputysportscaptaingirls,
+        #confirmation {
+            display: none;
+        }
+
+        #error h1 {
+            text-align: center;
+            font-weight: 600;
+            font-size: 40px;
+            position: relative;
+            margin-top: 2%;
+            color: cyan;
+        }
+
+        #main {
+            margin-top: 2%;
+        }
+
+        table {
+            width: 80%;
+            margin-left: 10%;
+            margin-top: 2%;
+        }
+
+        td {
+            text-align: center;
+            font-size: 30px;
+            font-weight: 900;
+            color: red;
+        }
+
+        @keyframes gradientBG {
+            0% {
+                background-position: 0% 50%;
+            }
+
+            50% {
+                background-position: 100% 50%;
+            }
+
+            100% {
+                background-position: 0% 50%;
+            }
+        }
+
+        .post {
+            border-radius: 10px;
+            background: linear-gradient(135deg, #3498db, #e74c3c, #2ecc71, #f39c12);
+            animation: gradientBG 1s ease-in infinite;
+            font-size: 40px;
+            color: black;
+            display: flex;
+            justify-content: center;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body oncontextmenu="return false" onkeydown="return event.key != 'Enter';">
+    <div id="main">
+        <form action="{% url 'submit' %}" method="post" id="vote"> {% csrf_token %} </form> <a href="{% url 'home' %}"
+            id="homelink" class="btn btn-primary">Home</a>
+        <img src="https://pbs.twimg.com/profile_images/987687428365389825/F42jiM8p_400x400.jpg" width="100" height="100"
+            id="jss-logo">
+        <div class="container" style="width: 100%;">
+            <div class="progress">
+                <div class="progress-bar progress-bar-striped active" role="progressbar" aria-valuenow="70"
+                    aria-valuemin="0" aria-valuemax="100" style="width:0%" id="line"> </div>
+            </div>
+        </div>
+        <center>
+            <font style="color:white; font-size:45px; font-weight: bold; text-decoration: underline;" id="date"></font>
+        </center>
+    </div>
+    <!--HEADBOY-->
+    <div id="headboy" onchange="selected(headboy_options)">
+        <div class="big-box" onchange="check_headboy()">
+            <center>
+                <font class="post">
+                    Head Boy - Junior School</font>
+            </center>
+            <div class="picture-box-container"> {% for i in headboys %} <div class="picture-box"> <input form="vote"
+                        type="radio" name="headboy" style="content: url('{{ i.photo.url }}');" class="img"
+                        value="{{ i.name }}">
+                    <div class="caption">
+                        <h3>{{ i.name }}</h3>
+                    </div>
+                </div> {% endfor %} </div>
+        </div> <br>
+        <div class="next"> <button type="button" onclick="next(headboy, headgirl)" id="headboy-button"
+                style="display: none;">Next</button> </div>
+    </div> <!--HEADGIRL-->
+    <div id="headgirl" onchange="selected(headgirl_options)">
+        <div class="big-box" onchange="check_headgirl()">
+            <center>
+                <font class="post">
+                    Head Girl - Junior School</font>
+            </center>
+            <div class="picture-box-container"> {% for i in headgirls %} <div class="picture-box"> <input form="vote"
+                        type="radio" name="headgirl" style="content: url('{{ i.photo.url }}');" class="img"
+                        value="{{ i.name }}">
+                    <div class="caption">
+                        <h3>{{ i.name }}</h3>
+                    </div>
+                </div> {% endfor %} </div>
+        </div> <br>
+        <div class="previous"> <button type="button" onclick="prev(headboy, headgirl)">Previous</button> </div>
+        <div class="next"> <button type="button" onclick="next(headgirl, sportscaptainboys)" id="headgirl-button"
+                style="display: none;">Next</button> </div>
+    </div> <!--SPORTS CAPTAIN BOYS-->
+    <div id="sportscaptainboys" onchange="selected(sportscaptainboys_options)">
+        <div class="big-box" onchange="check_sportsboy()">
+            <center>
+                <font class="post">
+                    Sports Captain Boy - Junior School</font>
+            </center>
+            <div class="picture-box-container"> {% for i in sportsboys %} <div class="picture-box"> <input form="vote"
+                        type="radio" name="sportsboy" style="content: url('{{ i.photo.url }}');" class="img"
+                        value="{{ i.name }}">
+                    <div class="caption">
+                        <h3>{{ i.name }}</h3>
+                    </div>
+                </div> {% endfor %} </div>
+        </div> <br>
+        <div class="previous"> <button type="button" onclick="prev(headgirl, sportscaptainboys)">Previous</button>
+        </div>
+        <div class="next"> <button type="button" onclick="next(sportscaptainboys, sportscaptaingirl)"
+                id="sportsboy-button" style="display: none;">Next</button> </div>
+    </div> <!--SPORTS CAPTAIN GIRL-->
+    <div id="sportscaptaingirl" onchange="selected(sportscaptaingirl_options)">
+        <div class="big-box" onchange="check_sportsgirl()">
+            <center>
+                <font class="post">
+                    Sports Captain Girl - Junior School</font>
+            </center>
+            <div class="picture-box-container"> {% for i in sportsgirls %} <div class="picture-box"> <input form="vote"
+                        type="radio" name="sportsgirl" style="content: url('{{ i.photo.url }}');" class="img"
+                        value="{{ i.name }}">
+                    <div class="caption">
+                        <h3>{{ i.name }}</h3>
+                    </div>
+                </div> {% endfor %} </div>
+        </div> <br>
+        <div class="previous"> <button type="button"
+                onclick="prev(sportscaptainboys, sportscaptaingirl)">Previous</button> </div>
+        <div class="next"> <button type="button" onclick="next(sportscaptaingirl, confirmation)" id="sportsgirl-button"
+                style="display: none;">Next</button> </div>
+    </div>
+    </div>
+    <center>
+        <font style="color:white; font-size:45px; font-weight: bold; position: fixed; left: 38%; bottom: 7.5%;">Time
+            Remaining = <span id="time"></span>
+        </font>
+    </center>
+    <div id="confirmation"> </div>
+    <script>
+        const html = document.querySelector("html");
+        html.addEventListener("contextmenu", (e) => {
+            e.preventDefault();
+        });
+        document.onkeydown = function (e) {
+            if (event.keyCode == 123) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == "I".charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == "J".charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == "C".charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.shiftKey && e.keyCode == "T".charCodeAt(0)) {
+                return false;
+            }
+            if (e.ctrlKey && e.keyCode == "U".charCodeAt(0)) {
+                return false;
+            }
+        };
+
+        let dateObj = new Date();
+        let date = `${dateObj.getDate()}-${dateObj.getMonth() + 1}-${dateObj.getFullYear()}`;
+        document.getElementById("date").innerHTML = date
+
+
+        let time = 60 * 5; // Time in seconds
+
+        let timer = setInterval(() => {
+            if (time > -1) {
+                let minutes = Math.floor(time / 60);
+                let seconds = time % 60;
+
+                document.getElementById("time").innerHTML = `${minutes}:${seconds}`
+                time--;
+            } else {
+                clearInterval(timer)
+                alert("You have taken too long to cast your vote. This session has expired. Please restart your voting process.");
+                window.location.reload()
+            }
+        }, 1000)
+
+        let jssid = document.getElementById("jssid");
+        let headboy = document.getElementById("headboy");
+        let headgirl = document.getElementById("headgirl");
+        let sportscaptainboys = document.getElementById("sportscaptainboys");
+        let sportscaptaingirl = document.getElementById("sportscaptaingirl");
+        let confirmation1 = document.getElementById("confirmation");
+        let x = 0;
+        function next(a, b) {
+            a.style.display = "none";
+            b.style.display = "block";
+            x += 20;
+            document.getElementById("line").style.width = x + "%";
+        }
+        function prev(a, b) {
+            a.style.display = "block";
+            b.style.display = "none";
+            x -= 20;
+            document.getElementById("line").style.width = x + "%";
+        }
+        let headboy_options = document.getElementsByName("headboy");
+        let headgirl_options = document.getElementsByName("headgirl");
+        let sportscaptainboys_options = document.getElementsByName("sportsboy");
+        let sportscaptaingirl_options = document.getElementsByName("sportsgirl");
+
+        function selected(options) {
+            for (let i = 0; i < options.length; i++) {
+                if (options[i].checked) {
+                    options[i].setAttribute("id", "selected");
+                } else {
+                    options[i].removeAttribute("id");
+                }
+            }
+        }
+        function confirmation() {
+            x += 100 - x;
+            document.getElementById("line").style.width = x + "%";
+            let headboy = document.getElementsByName("headboy");
+            let headgirl = document.getElementsByName("headgirl");
+            let sportsboy = document.getElementsByName("sportsboy");
+            let sportsgirl = document.getElementsByName("sportsgirl");
+
+            document.getElementById("confirmation").style.display = "block";
+            let shb, shg, ssb, ssg;
+            for (let i = 0; i < headboy.length; i++) {
+                if (headboy[i].checked) {
+                    shb = headboy[i].value;
+                }
+            }
+            for (let i = 0; i < headgirl.length; i++) {
+                if (headgirl[i].checked) {
+                    shg = headgirl[i].value;
+                }
+            }
+            for (let i = 0; i < sportsboy.length; i++) {
+                if (sportsboy[i].checked) {
+                    ssb = sportsboy[i].value;
+                }
+            }
+            for (let i = 0; i < sportsgirl.length; i++) {
+                if (sportsgirl[i].checked) {
+                    ssg = sportsgirl[i].value;
+                }
+            }
+            document.getElementById("sportscaptaingirl").style.display = "none";
+            document.getElementById(
+                "confirmation"
+            ).innerHTML = `<table border="4"> <tr> <td>Headboy</td> <td>${shb}</td> </tr> <tr> <td>Headgirl</td> <td>${shg}</td> </tr> <tr> <td>Sports Captain Boys</td> <td>${ssb}</td> </tr> <tr> <td>Sports Captain Girls</td> <td>${ssg}</td> </tr> </table> <br><br><button onclick="prev(sportscaptaingirl, confirmation1)" class="confirm-button">Go Back</button>&nbsp;&nbsp;&nbsp; <input type="submit" value="Confirm your choices" form="vote" class="confirm-button">`;
+        }
+        function check_headboy() {
+            const radioButtons = document.querySelectorAll(
+                'input[type="radio"][name="headboy"]'
+            );
+            let selectedRadioButton = null;
+            radioButtons.forEach(function (radioButton) {
+                if (radioButton.checked) {
+                    selectedRadioButton = radioButton;
+                }
+            });
+            if (selectedRadioButton) {
+                document.getElementById("headboy-button").style.display = "block";
+                next(headboy, headgirl);
+            } else {
+                document.getElementById("headboy-button").style.display = "none";
+            }
+        }
+        function check_headgirl() {
+            const radioButtons = document.querySelectorAll(
+                'input[type="radio"][name="headgirl"]'
+            );
+            let selectedRadioButton = null;
+            radioButtons.forEach(function (radioButton) {
+                if (radioButton.checked) {
+                    selectedRadioButton = radioButton;
+                }
+            });
+            if (selectedRadioButton) {
+                document.getElementById("headgirl-button").style.display = "block";
+                next(headgirl, sportscaptainboys);
+            } else {
+                document.getElementById("headgirl-button").style.display = "none";
+            }
+        }
+        function check_sportsboy() {
+            const radioButtons = document.querySelectorAll(
+                'input[type="radio"][name="sportsboy"]'
+            );
+            let selectedRadioButton = null;
+            radioButtons.forEach(function (radioButton) {
+                if (radioButton.checked) {
+                    selectedRadioButton = radioButton;
+                }
+            });
+            if (selectedRadioButton) {
+                document.getElementById("sportsboy-button").style.display = "block";
+                next(sportscaptainboys, sportscaptaingirl);
+            } else {
+                document.getElementById("sportsboy-button").style.display = "none";
+            }
+        }
+        function check_sportsgirl() {
+            const radioButtons = document.querySelectorAll(
+                'input[type="radio"][name="sportsgirl"]'
+            );
+            let selectedRadioButton = null;
+            radioButtons.forEach(function (radioButton) {
+                if (radioButton.checked) {
+                    selectedRadioButton = radioButton;
+                }
+            });
+            if (selectedRadioButton) {
+                document.getElementById("sportsgirl-button").style.display = "block";
+                confirmation()
+            } else {
+                document.getElementById("sportsgirl-button").style.display = "none";
+            }
+        }
+
+
+    </script>
+</body>
+
+</html>

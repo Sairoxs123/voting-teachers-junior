@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+    <center>
+        <h1>
+            {% if error == "closed" %}
+                Voting system has been closed. Please try again later.
+            {% elif error == "done" %}
+                You have already voted.
+            {% elif error == "jssid" %}
+                JSSID is not valid.
+            {% elif error == "token" %}
+                Verification token is invalid.
+            {% elif error == "na" %}
+                You have not begun the voting process.
+            {% else %}
+                Form was not filled completely.
+            {% endif %}
+        </h1>
+
+        <a href="/">Return to Home Page</a>
+
+    </center>
+
+</body>
+</html>

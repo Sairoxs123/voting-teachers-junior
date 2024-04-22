@@ -1,0 +1,694 @@
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Voting</title>
+  <link href="https://pbs.twimg.com/profile_images/987687428365389825/F42jiM8p_400x400.jpg" type="image/jpg" rel="icon">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+  <style>
+    body {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.5), rgba(0, 0, 0, 0.5)), url(https://www.yallaschools.com/uploads/JSS_Pvt_School.jpg);
+      height: 100vh;
+      background-size: cover;
+      background-position: center;
+      height: 95%;
+    }
+
+    #homelink {
+      text-decoration: none;
+      cursor: pointer;
+      top: 0;
+      left: 0;
+      position: absolute;
+      font-size: 40px;
+      font-weight: 900;
+      color: black;
+      background-color: orange;
+      padding: 5px 5px 5px 5px;
+      margin: 0.5%;
+      border-radius: 22px;
+    }
+
+    .container {
+      position: absolute;
+      margin-top: 5%;
+    }
+
+    .big-box {
+      background-image: linear-gradient(rgba(0, 0, 0, 0.3), rgba(0, 0, 0, 0.3)), url(https://w0.peakpx.com/wallpaper/506/235/HD-wallpaper-white-hexagon-geometric-shapes-white-aesthetic.jpg);
+      background-size: cover;
+      background-position: center;
+      padding: 20px;
+      max-width: 87%;
+      height: 60%;
+      margin: 0 auto;
+      margin-top: 3%;
+    }
+
+    #confirmation {
+      background-color: ivory;
+      border: 1px solid #ddd;
+      padding: 5%x;
+      max-width: 70%;
+      height: 450;
+      margin: 1 auto;
+      margin-top: 5%;
+      text-align: center;
+    }
+
+    .confirm-button {
+      font-size: 16px;
+      font-weight: 900;
+      padding: 1%;
+      background-color: yellow;
+      border: 3px solid blue;
+      cursor: pointer;
+      margin-left: 2%;
+    }
+
+    .confirm-button:hover {
+      background-color: aqua;
+      transition: all 5ms;
+    }
+
+    .picture-box-container {
+      display: flex;
+      justify-content: space-between;
+      margin-top: 20px;
+      width: 100%;
+    }
+
+    .picture-box {
+      position: relative;
+      width: 100%;
+      height: 313;
+      padding-left: 1%;
+      padding-right: 1%;
+      margin: 0;
+      padding-bottom: 1%;
+      box-sizing: border-box;
+      display: flex;
+      justify-content: center;
+    }
+
+    .picture-box .img {
+      width: 100%;
+      height: 305;
+      cursor: pointer;
+    }
+
+    .picture-box .caption {
+      position: absolute;
+      /* Position the background text */
+      bottom: 6px;
+      /* At the bottom. Use top:0 to append it to the top */
+      background: rgb(0, 0, 0);
+      /* Fallback color */
+      background: rgba(0, 0, 0, 0.5);
+      /* Black background with 0.5 opacity */
+      color: #f1f1f1;
+      /* Grey text */
+      margin-left: 0.1%;
+      width: 91%;
+      /* Full width */
+      padding: 15px;
+      text-align: center;
+      /* Some padding */
+    }
+
+    .picture-box:hover .caption {
+      opacity: 1;
+      width: 91%;
+    }
+
+    .picture-box .caption h3 {
+      margin: 0;
+      font-size: 24px;
+    }
+
+    .picture-box .caption p {
+      margin: 0;
+      font-size: 16px;
+    }
+
+    .previous {
+      bottom: 0;
+      left: 0;
+      margin-left: 1%;
+      margin-top: 1%;
+      float: left;
+      padding: 0.15%;
+      background-color: black;
+    }
+
+    .previous button {
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px 20px;
+      background-color: #333;
+      color: black;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+      background-color: white;
+    }
+
+    .next {
+      bottom: 0;
+      right: 0;
+      margin-right: 1%;
+      margin-top: 1%;
+      float: right;
+      padding: 0.15%;
+      background-color: black;
+    }
+
+    .next button {
+      background-color: white;
+      font-size: 16px;
+      font-weight: bold;
+      padding: 10px 20px;
+      color: black;
+      border: none;
+      cursor: pointer;
+      width: 100%;
+    }
+
+    #selected {
+      outline: green solid 5px;
+      transition: linear 50ms;
+    }
+
+    #headboy,
+    #headgirl,
+    #sportscaptainboys,
+    #sportscaptaingirl,
+    #deputyheadboy,
+    #deputyheadgirl,
+    #deputysportscaptainboys,
+    #deputysportscaptaingirls,
+    #confirmation {
+      display: none;
+    }
+
+    #error h1 {
+      text-align: center;
+      font-weight: 600;
+      font-size: 40px;
+      position: relative;
+      margin-top: 2%;
+      color: cyan;
+    }
+
+    #main {
+      margin-top: 2%;
+    }
+
+    table {
+      width: 80%;
+      margin-left: 10%;
+      margin-top: 2%;
+    }
+
+    td {
+      text-align: center;
+      font-size: 25px;
+      font-weight: 900;
+      color: red;
+    }
+  </style>
+</head>
+
+<body oncontextmenu="return false">
+  <div id="main">
+    <form action="{% url 'submit' %}" method="post" id="vote"> {% csrf_token %} </form> <a href="{% url 'home' %}"
+      id="homelink">Home</a>
+    <div class="container" style="width: 100%;">
+      <div class="progress">
+        <div class="progress-bar" role="progressbar" aria-valuenow="70" aria-valuemin="0" aria-valuemax="100"
+          style="width:0%" id="line"> </div>
+      </div>
+    </div>
+    <center>
+      <font style="color:white; font-size:45px; font-weight: bold; ">VOTE!!!</font>
+    </center>
+  </div>
+
+  <div id="jssid">
+
+    <div class="big-box" style="align-items: center; display: flex; justify-content: center;">
+      <div>
+        <div>
+          <span style="font-size: 4em;">Enter your JSSID:</span>
+        </div>
+        <br>
+        <div style="display: flex; justify-content: center; align-items: center;">
+          <span style="font-size: 3em;">JSSPS</span>
+          <input type="text" id="jssid-input" name="jssid" form="vote" placeholder="Ex: A0089"
+            style="font-size: 3em; max-width: 300px;">
+        </div>
+      </div>
+    </div>
+
+    <br>
+    <div class="next">
+      <button type="button" onclick="next(jssid, headboy)" id="jssid-button" style="display: none;">Next</button>
+    </div>
+  </div>
+
+  <!--HEADBOY-->
+  <div id="headboy" onchange="selected(headboy_options)">
+    <div class="big-box" onchange="check_headboy()">
+      <center>
+        <font
+          style="color:black; font-size:40px; font-weight: bold; background-color: #E1F2F5; padding: 5px; padding-left:400px; padding-right: 400px;">
+          Head Boy</font>
+      </center>
+      <div class="picture-box-container"> {% for i in headboys %} <div class="picture-box"> <input form="vote"
+            type="radio" name="headboy" style="content: url('{{ i.photo.url }}');" class="img" value="{{ i.name }}">
+          <div class="caption">
+            <h3>{{ i.name }}</h3>
+          </div>
+        </div> {% endfor %} </div>
+    </div> <br>
+    <div class="previous"> <button type="button" onclick="prev(jssid, headboy)">Previous</button> </div>
+    <div class="next"> <button type="button" onclick="next(headboy, headgirl)" id="headboy-button"
+        style="display: none;">Next</button> </div>
+  </div> <!--HEADGIRL-->
+  <div id="headgirl" onchange="selected(headgirl_options)">
+    <div class="big-box" onchange="check_headgirl()">
+      <center>
+        <font
+          style="color:black; font-size:40px; font-weight: bold; background-color: #E1F2F5; padding: 5px; padding-left:400px; padding-right: 400px;">
+          Head Girl</font>
+      </center>
+      <div class="picture-box-container"> {% for i in headgirls %} <div class="picture-box"> <input form="vote"
+            type="radio" name="headgirl" style="content: url('{{ i.photo.url }}');" class="img" value="{{ i.name }}">
+          <div class="caption">
+            <h3>{{ i.name }}</h3>
+          </div>
+        </div> {% endfor %} </div>
+    </div> <br>
+    <div class="previous"> <button type="button" onclick="prev(headboy, headgirl)">Previous</button> </div>
+    <div class="next"> <button type="button" onclick="next(headgirl, sportscaptainboys)" id="headgirl-button"
+        style="display: none;">Next</button> </div>
+  </div> <!--SPORTS CAPTAIN BOYS-->
+  <div id="sportscaptainboys" onchange="selected(sportscaptainboys_options)">
+    <div class="big-box" onchange="check_sportsboy()">
+      <center>
+        <font
+          style="color:black; font-size:40px; font-weight: bold; background-color: #E1F2F5; padding: 5px; padding-left:300px; padding-right: 300px;">
+          Sports Captain Boy</font>
+      </center>
+      <div class="picture-box-container"> {% for i in sportsboys %} <div class="picture-box"> <input form="vote"
+            type="radio" name="sportsboy" style="content: url('{{ i.photo.url }}');" class="img" value="{{ i.name }}">
+          <div class="caption">
+            <h3>{{ i.name }}</h3>
+          </div>
+        </div> {% endfor %} </div>
+    </div> <br>
+    <div class="previous"> <button type="button" onclick="prev(headgirl, sportscaptainboys)">Previous</button>
+    </div>
+    <div class="next"> <button type="button" onclick="next(sportscaptainboys, sportscaptaingirl)" id="sportsboy-button"
+        style="display: none;">Next</button> </div>
+  </div> <!--SPORTS CAPTAIN GIRL-->
+  <div id="sportscaptaingirl" onchange="selected(sportscaptaingirl_options)">
+    <div class="big-box" onchange="check_sportsgirl()">
+      <center>
+        <font
+          style="color:black; font-size:40px; font-weight: bold; background-color: #E1F2F5; padding: 5px; padding-left:300px; padding-right: 300px;">
+          Sports Captain Girl</font>
+      </center>
+      <div class="picture-box-container"> {% for i in sportsgirls %} <div class="picture-box"> <input form="vote"
+            type="radio" name="sportsgirl" style="content: url('{{ i.photo.url }}');" class="img" value="{{ i.name }}">
+          <div class="caption">
+            <h3>{{ i.name }}</h3>
+          </div>
+        </div> {% endfor %} </div>
+    </div> <br>
+    <div class="previous"> <button type="button" onclick="prev(sportscaptainboys, sportscaptaingirl)">Previous</button>
+    </div>
+    <div class="next"> <button type="button" onclick="next(sportscaptaingirl, deputyheadboy)" id="sportsgirl-button"
+        style="display: none;">Next</button> </div>
+  </div> <!--DEPUTY HEADBOY-->
+  <div id="deputyheadboy" onchange="selected(deputyheadboy_options)">
+    <div class="big-box" onchange="check_dheadboy()">
+      <center>
+        <font
+          style="color:black; font-size:40px; font-weight: bold; background-color: #E1F2F5; padding: 5px; padding-left:320px; padding-right: 320px;">
+          Deputy Head Boy</font>
+      </center>
+      <div class="picture-box-container"> {% for i in dheadboys %} <div class="picture-box"> <input form="vote"
+            type="radio" name="dheadboy" style="content: url('{{ i.photo.url }}');" class="img" value="{{ i.name }}">
+          <div class="caption">
+            <h3>{{ i.name }}</h3>
+          </div>
+        </div> {% endfor %} </div>
+    </div> <br>
+    <div class="previous"> <button type="button" onclick="prev(sportscaptaingirl, deputyheadboy)">Previous</button>
+    </div>
+    <div class="next"> <button type="button" onclick="next(deputyheadboy, deputyheadgirl)" id="dheadboy-button"
+        style="display: none;">Next</button> </div>
+  </div> <!--DEPUTY HEADGIRL-->
+  <div id="deputyheadgirl" onchange="selected(deputyheadgirl_options)">
+    <div class="big-box" onchange="check_dheadgirl()">
+      <center>
+        <font
+          style="color:black; font-size:40px; font-weight: bold; background-color: #E1F2F5; padding: 5px; padding-left:320px; padding-right: 320px;">
+          Deputy Head Girl</font>
+      </center>
+      <div class="picture-box-container"> {% for i in dheadgirls %} <div class="picture-box"> <input form="vote"
+            type="radio" name="dheadgirl" style="content: url('{{ i.photo.url }}');" class="img" value="{{ i.name }}">
+          <div class="caption">
+            <h3>{{ i.name }}</h3>
+          </div>
+        </div> {% endfor %} </div>
+    </div> <br>
+    <div class="previous"> <button type="button" onclick="prev(deputyheadboy, deputyheadgirl)">Previous</button>
+    </div>
+    <div class="next"> <button type="button" onclick="next(deputyheadgirl, deputysportscaptainboys)"
+        id="dheadgirl-button" style="display: none;">Next</button> </div>
+  </div> <!--DEPUTY SPORTS CAPTAIN BOYS-->
+  <div id="deputysportscaptainboys" onchange="selected(deputysportscaptainboys_options)">
+    <div class="big-box" onchange="check_dsportsboy()">
+      <center>
+        <font
+          style="color:black; font-size:40px; font-weight: bold; background-color: #E1F2F5; padding: 5px; padding-left:250px; padding-right: 250px;">
+          Deputy Sports Captain Boys</font>
+      </center>
+      <div class="picture-box-container"> {% for i in dsportsboys %} <div class="picture-box"> <input form="vote"
+            type="radio" name="dsportsboy" style="content: url('{{ i.photo.url }}');" class="img" value="{{ i.name }}">
+          <div class="caption">
+            <h3>{{ i.name }}</h3>
+          </div>
+        </div> {% endfor %} </div>
+    </div> <br>
+    <div class="previous"> <button type="button"
+        onclick="prev(deputyheadgirl, deputysportscaptainboys)">Previous</button> </div>
+    <div class="next"> <button type="button" onclick="next(deputysportscaptainboys, deputysportscaptaingirl)"
+        id="dsportsboy-button" style="display: none;">Next</button> </div>
+  </div> <!--DEPUTY SPORTS CAPTAIN GIRLS-->
+  <div id="deputysportscaptaingirls" onchange="selected(deputysportscaptaingirl_options)">
+    <div class="big-box" onchange="check_dsportsgirl()">
+      <center>
+        <font
+          style="color:black; font-size:40px; font-weight: bold; background-color: #E1F2F5; padding: 5px; padding-left:250px; padding-right: 250px;">
+          Deputy Sports Captain Girls</font>
+      </center>
+      <div class="picture-box-container"> {% for i in dsportsgirls %} <div class="picture-box"> <input form="vote"
+            type="radio" name="dsportsgirl" style="content: url('{{ i.photo.url }}');" class="img" value="{{ i.name }}">
+          <div class="caption">
+            <h3>{{ i.name }}</h3>
+          </div>
+        </div> {% endfor %} </div>
+    </div> <br>
+    <div class="previous"> <button type="button"
+        onclick="prev(deputysportscaptainboys, deputysportscaptaingirl)">Previous</button> </div>
+    <div class="next"> <button onclick="confirmation()" id="dsportsgirl-button" style="display: none;">Confirm</button>
+    </div>
+  </div>
+  </div>
+  <div id="confirmation"> </div>
+  <script>
+
+    const html = document.querySelector("html");
+    html.addEventListener("contextmenu", (e) => {
+      e.preventDefault();
+    });
+    document.onkeydown = function (e) {
+      if (event.keyCode == 123) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && e.keyCode == "I".charCodeAt(0)) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && e.keyCode == "J".charCodeAt(0)) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && e.keyCode == "C".charCodeAt(0)) {
+        return false;
+      }
+      if (e.ctrlKey && e.shiftKey && e.keyCode == "T".charCodeAt(0)) {
+        return false;
+      }
+      if (e.ctrlKey && e.keyCode == "U".charCodeAt(0)) {
+        return false;
+      }
+    };
+
+    let jssid = document.getElementById("jssid");
+    let headboy = document.getElementById("headboy");
+    let headgirl = document.getElementById("headgirl");
+    let sportscaptainboys = document.getElementById("sportscaptainboys");
+    let sportscaptaingirl = document.getElementById("sportscaptaingirl");
+    let deputyheadboy = document.getElementById("deputyheadboy");
+    let deputyheadgirl = document.getElementById("deputyheadgirl");
+    let deputysportscaptainboys = document.getElementById(
+      "deputysportscaptainboys"
+    );
+    let deputysportscaptaingirl = document.getElementById(
+      "deputysportscaptaingirls"
+    );
+    let confirmation1 = document.getElementById("confirmation");
+    let x = 0;
+    function next(a, b) {
+      a.style.display = "none";
+      b.style.display = "block";
+      x += Math.round((100 / 9));
+      document.getElementById("line").style.width = x + "%";
+    }
+    function prev(a, b) {
+      a.style.display = "block";
+      b.style.display = "none";
+      x -= Math.round((100 / 9));
+      document.getElementById("line").style.width = x + "%";
+    }
+
+    document.getElementById("jssid-input").addEventListener("input", () => {
+      let input = document.getElementById("jssid-input").value;
+      if (input.length == 5) {
+        document.getElementById("jssid-button").style.display = "block";
+      } else {
+        document.getElementById("jssid-button").style.display = "none";
+      }
+    });
+
+    let headboy_options = document.getElementsByName("headboy");
+    let headgirl_options = document.getElementsByName("headgirl");
+    let sportscaptainboys_options = document.getElementsByName("sportsboy");
+    let sportscaptaingirl_options = document.getElementsByName("sportsgirl");
+    let deputyheadboy_options = document.getElementsByName("dheadboy");
+    let deputyheadgirl_options = document.getElementsByName("dheadgirl");
+    let deputysportscaptainboys_options = document.getElementsByName("dsportsboy");
+    let deputysportscaptaingirl_options = document.getElementsByName("dsportsgirl");
+    function selected(options) {
+      for (let i = 0; i < options.length; i++) {
+        if (options[i].checked) {
+          options[i].setAttribute("id", "selected");
+        } else {
+          options[i].removeAttribute("id");
+        }
+      }
+    }
+    function confirmation() {
+      x += 12.5;
+      document.getElementById("line").style.width = x + "%";
+      let headboy = document.getElementsByName("headboy");
+      let headgirl = document.getElementsByName("headgirl");
+      let sportsboy = document.getElementsByName("sportsboy");
+      let sportsgirl = document.getElementsByName("sportsgirl");
+      let dheadboy = document.getElementsByName("dheadboy");
+      let dheadgirl = document.getElementsByName("dheadgirl");
+      let dsportsboy = document.getElementsByName("dsportsboy");
+      let dsportsgirl = document.getElementsByName("dsportsgirl");
+      document.getElementById("confirmation").style.display = "block";
+      let shb, shg, ssb, ssg, sdhb, sdhg, sdsb, sdsg;
+      for (let i = 0; i < headboy.length; i++) {
+        if (headboy[i].checked) {
+          shb = headboy[i].value;
+        }
+      }
+      for (let i = 0; i < headgirl.length; i++) {
+        if (headgirl[i].checked) {
+          shg = headgirl[i].value;
+        }
+      }
+      for (let i = 0; i < sportsboy.length; i++) {
+        if (sportsboy[i].checked) {
+          ssb = sportsboy[i].value;
+        }
+      }
+      for (let i = 0; i < sportsgirl.length; i++) {
+        if (sportsgirl[i].checked) {
+          ssg = sportsgirl[i].value;
+        }
+      }
+      for (let i = 0; i < dheadboy.length; i++) {
+        if (dheadboy[i].checked) {
+          sdhb = dheadboy[i].value;
+        }
+      }
+      for (let i = 0; i < dheadgirl.length; i++) {
+        if (dheadgirl[i].checked) {
+          sdhg = dheadgirl[i].value;
+        }
+      }
+      for (let i = 0; i < dsportsboy.length; i++) {
+        if (dsportsboy[i].checked) {
+          sdsb = dsportsboy[i].value;
+        }
+      }
+      for (let i = 0; i < dsportsgirl.length; i++) {
+        if (dsportsgirl[i].checked) {
+          sdsg = dsportsgirl[i].value;
+        }
+      }
+      document.getElementById("deputysportscaptaingirls").style.display = "none";
+      document.getElementById(
+        "confirmation"
+      ).innerHTML = `<table border="4"> <tr> <td>Headboy</td> <td>${shb}</td> </tr> <tr> <td>Headgirl</td> <td>${shg}</td> </tr> <tr> <td>Sports Captain Boys</td> <td>${ssb}</td> </tr> <tr> <td>Sports Captain Girls</td> <td>${ssg}</td> </tr> <tr> <td>Deputy Headboy</td> <td>${sdhb}</td> </tr> <tr> <td>Deputy Headgirl</td> <td>${sdhg}</td> </tr> <tr> <td>Deputy Sports Captain Boys</td> <td>${sdsb}</td> </tr> <tr> <td>Deputy Sports Captain Girls</td> <td>${sdsg}</td> </tr> </table> <br><br><button onclick="prev(deputysportscaptaingirl, confirmation1)" class="confirm-button">Go Back</button>&nbsp;&nbsp;&nbsp; <input type="submit" value="Confirm your choices" form="vote" class="confirm-button">`;
+    }
+    function check_headboy() {
+      const radioButtons = document.querySelectorAll(
+        'input[type="radio"][name="headboy"]'
+      );
+      let selectedRadioButton = null;
+      radioButtons.forEach(function (radioButton) {
+        if (radioButton.checked) {
+          selectedRadioButton = radioButton;
+        }
+      });
+      if (selectedRadioButton) {
+        document.getElementById("headboy-button").style.display = "block";
+        next(headboy, headgirl);
+      } else {
+        document.getElementById("headboy-button").style.display = "none";
+      }
+    }
+    function check_headgirl() {
+      const radioButtons = document.querySelectorAll(
+        'input[type="radio"][name="headgirl"]'
+      );
+      let selectedRadioButton = null;
+      radioButtons.forEach(function (radioButton) {
+        if (radioButton.checked) {
+          selectedRadioButton = radioButton;
+        }
+      });
+      if (selectedRadioButton) {
+        document.getElementById("headgirl-button").style.display = "block";
+        next(headgirl, sportscaptainboys);
+      } else {
+        document.getElementById("headgirl-button").style.display = "none";
+      }
+    }
+    function check_sportsboy() {
+      const radioButtons = document.querySelectorAll(
+        'input[type="radio"][name="sportsboy"]'
+      );
+      let selectedRadioButton = null;
+      radioButtons.forEach(function (radioButton) {
+        if (radioButton.checked) {
+          selectedRadioButton = radioButton;
+        }
+      });
+      if (selectedRadioButton) {
+        document.getElementById("sportsboy-button").style.display = "block";
+        next(sportscaptainboys, sportscaptaingirl);
+      } else {
+        document.getElementById("sportsboy-button").style.display = "none";
+      }
+    }
+    function check_sportsgirl() {
+      const radioButtons = document.querySelectorAll(
+        'input[type="radio"][name="sportsgirl"]'
+      );
+      let selectedRadioButton = null;
+      radioButtons.forEach(function (radioButton) {
+        if (radioButton.checked) {
+          selectedRadioButton = radioButton;
+        }
+      });
+      if (selectedRadioButton) {
+        document.getElementById("sportsgirl-button").style.display = "block";
+        next(sportscaptaingirl, deputyheadboy);
+      } else {
+        document.getElementById("sportsgirl-button").style.display = "none";
+      }
+    }
+    function check_dheadboy() {
+      const radioButtons = document.querySelectorAll(
+        'input[type="radio"][name="dheadboy"]'
+      );
+      let selectedRadioButton = null;
+      radioButtons.forEach(function (radioButton) {
+        if (radioButton.checked) {
+          selectedRadioButton = radioButton;
+        }
+      });
+      if (selectedRadioButton) {
+        document.getElementById("dheadboy-button").style.display = "block";
+        next(deputyheadboy, deputyheadgirl);
+      } else {
+        document.getElementById("dheadboy-button").style.display = "none";
+      }
+    }
+    function check_dheadgirl() {
+      const radioButtons = document.querySelectorAll(
+        'input[type="radio"][name="dheadgirl"]'
+      );
+      let selectedRadioButton = null;
+      radioButtons.forEach(function (radioButton) {
+        if (radioButton.checked) {
+          selectedRadioButton = radioButton;
+        }
+      });
+      if (selectedRadioButton) {
+        document.getElementById("dheadgirl-button").style.display = "block";
+        next(deputyheadgirl, deputysportscaptainboys);
+      } else {
+        document.getElementById("dheadgirl-button").style.display = "none";
+      }
+    }
+    function check_dsportsboy() {
+      const radioButtons = document.querySelectorAll(
+        'input[type="radio"][name="dsportsboy"]'
+      );
+      let selectedRadioButton = null;
+      radioButtons.forEach(function (radioButton) {
+        if (radioButton.checked) {
+          selectedRadioButton = radioButton;
+        }
+      });
+      if (selectedRadioButton) {
+        document.getElementById("dsportsboy-button").style.display = "block";
+        next(deputysportscaptainboys, deputysportscaptaingirl);
+      } else {
+        document.getElementById("dsportsboy-button").style.display = "none";
+      }
+    }
+    function check_dsportsgirl() {
+      const radioButtons = document.querySelectorAll(
+        'input[type="radio"][name="dsportsgirl"]'
+      );
+      let selectedRadioButton = null;
+      radioButtons.forEach(function (radioButton) {
+        if (radioButton.checked) {
+          selectedRadioButton = radioButton;
+        }
+      });
+      if (selectedRadioButton) {
+        document.getElementById("dsportsgirl-button").style.display = "block";
+        confirmation();
+      } else {
+        document.getElementById("dsportsgirl-button").style.display = "none";
+      }
+    }
+
+
+  </script>
+</body>
+
+</html>
